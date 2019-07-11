@@ -1,0 +1,270 @@
+CREATE TABLE Feedback (
+user_Id varchar(10) NOT NULL,
+comment text(255) not null
+);
+
+CREATE TABLE Alumni (
+alumni_id varchar(10) NOT NULL PRIMARY KEY,
+yop year not null,
+password varchar(20) not null,
+email varchar(30) not null,
+phone integer(15) not null unique
+);
+
+CREATE TABLE Subjects (
+subject_id varchar(10) NOT NULL PRIMARY KEY,
+subject_name varchar(30) not null,
+dept_id varchar(30) not null
+);
+
+CREATE TABLE Admin (
+admin_id varchar(10) NOT NULL PRIMARY KEY,
+name varchar(20) not null,
+password varchar(20) not null,
+doj date not null,
+phone integer not null unique
+);
+
+
+
+CREATE TABLE Course (
+course_id varchar(10) NOT NULL PRIMARY KEY,
+course_name varchar(20) not null,
+duration integer not null
+);
+
+CREATE TABLE Meeting (
+meeting_id varchar(10) NOT NULL PRIMARY KEY,
+meeting_info varchar(20) not null,
+m_date date not null,
+venue varchar(20) not null,
+startTime time not null,
+endTime time not null
+);
+
+CREATE TABLE Department (
+dept_id varchar(10) NOT NULL PRIMARY KEY,
+dept_name varchar(30) not null,
+course_id varchar(10) not null,
+foreign key (course_id) references Course(course_id)
+);
+
+create table Applicant(applicant_id varchar(10) not null primary key,
+name varchar(20) not null, dept_id varchar(10) NOT NULL, password varchar(20) not null,
+status varchar(10), course_id varchar(10) NOT NULL, phone integer not null unique,
+address text(100), foreign key(dept_id) references Department(dept_id), 
+foreign key(course_id) references Course(course_id));
+
+create table Student(stud_id varchar(10) not null primary key, name varchar(20) not null, 
+dept_id varchar(10) NOT NULL, semester integer not null, 
+password varchar(20) not null, course_id varchar(10) not null, email varchar(30) not null unique,
+phone integer not null unique, dob datetime, foreign key(course_id) references 
+Course(course_id),  foreign key(dept_id) references Department(dept_id));
+
+create table Faculty(faculty_id varchar(10) not null primary key, name varchar(20) not null, 
+dept_id varchar(10) NOT NULL, course_id varchar(10) not null, email varchar(30) not null unique,
+phone bigint(10) not null unique, dob datetime, qualification varchar(30), experience integer, 
+foreign key(course_id) references Course(course_id),  foreign key(dept_id) references Department(dept_id));
+
+create table Subjects(subject_id varchar(10) not null primary key, subject_name varchar(20) not null, 
+dept_id varchar(10) not null, foreign key(dept_id) references Department(dept_id));
+
+create table Takes(stud_id varchar(10) not null, subject_id varchar(10) not null, 
+primary key(stud_id, subject_id), foreign key(stud_id) references Student(stud_id), 
+foreign key(subject_id) references Subject(subject_id));
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS searchByStudId $$
+CREATE PROCEDURE searchByStudId(IN p_stud_id varchar(10), OUT p_name varchar(20), OUT p_dept_name varchar(30),
+OUT p_semester integer(10), OUT p_course_name varchar(20), OUT p_email varchar(30), OUT p_phone integer(10), OUT p_dob datetime)
+BEGIN
+select s.name, d.dept_name, s.semester, c.course_name, s.email, s.phone, s.dob into p_name, p_dept_name, p_semester, p_course_name, p_email, p_phone, p_dob
+from student s, department d, course c where s.stud_id = p_stud_id and s.dept_id = d.dept_id and s.course_id = c.course_id;
+END $$
+DELIMITER ;
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+package com.virtusa.collegeapp.dao.interfaces;
+
+import java.sql.SQLException;
+
+import com.virtusa.collegeapp.model.Student;
+
+public interface StudentDao {
+	
+	/* get student data using student id */
+	Student getStudentDetailsById(String studentId) throws SQLException;
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+package com.virtusa.collegeapp.dao.implementation;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ResourceBundle;
+
+import com.virtusa.collegeapp.dao.interfaces.StudentDao;
+import com.virtusa.collegeapp.helpers.MySQLHelper;
+import com.virtusa.collegeapp.model.Student;
+
+
+
+public class StudentImpl implements StudentDao {
+	private Connection conn;
+	private CallableStatement callable;
+	private PreparedStatement pre;
+	private ResourceBundle rb;
+	private Student student;
+	
+	@Override
+	public Student getStudentDetailsById(String studentId) throws SQLException {
+		// TODO Auto-generated method stub
+		conn=MySQLHelper.getConnection();
+		try
+		{
+			callable=conn.prepareCall("{call searchByStudId(?,?,?,?,?,?,?,?)}");
+			callable.setString(1, studentId);
+			callable.registerOutParameter(2, Types.VARCHAR);
+			callable.registerOutParameter(3, Types.VARCHAR);
+			callable.registerOutParameter(4, Types.INTEGER);
+			callable.registerOutParameter(5, Types.VARCHAR);
+			callable.registerOutParameter(6, Types.VARCHAR);
+			callable.registerOutParameter(7, Types.INTEGER);
+			callable.registerOutParameter(8, Types.DATE);
+			
+			callable.executeQuery();
+			student = new Student();
+			student.setStdId(studentId);
+			student.setStdName(callable.getString(2));
+			student.setDeptName(callable.getString(3));
+			student.setStdSem(callable.getInt(4));
+			student.setStdCourseName(callable.getString(5));
+			student.setStdEmail(callable.getString(6));
+			student.setStdPhone(callable.getLong(7));
+			student.setStdDob(callable.getDate(8));
+			conn.close();
+		}
+		
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		/* return student object */
+		return student;
+	}
+
+}
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+window.addEventListener('load',function()
+
+		{
+	var form=document.getElementById("searchFrm");
+	form.addEventListener('submit',function()
+
+			{
+
+		//alert("form submitted");
+
+		var xhr=null;
+
+		//create ajax object
+
+		try
+
+		{
+
+			xhr= new XMLHttpRequest(); //chrome,safari,firefox
+
+
+
+		}
+
+		catch(err)
+
+		{
+
+			try
+
+			{
+
+				xhr = new ActiveXObject("MSXML2.XMLHttp.6.0"); //IE
+
+			}
+
+			catch(err)
+
+			{
+
+				console.log("Ajax Object not created");
+
+			}
+
+
+
+
+
+		}
+
+
+
+		//Ajax Event handling 
+
+		//once response received from server
+
+
+
+		xhr.onreadystatechange = function()
+
+		{
+			var response=null;
+
+			var result=document.getElementById("result");
+
+			if (xhr.readyState == 4)//successful response
+
+			{
+				response=xhr.responseText;
+//				response=JSON.parse(response);
+				
+				//alert(response);
+				result.innerHTML=response;
+			}
+
+		}
+
+		//open the connection
+
+		xhr.open('post','FacultyServlet',false);
+
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		//read values from form	    	          
+
+		var studentId=document.getElementById('studentId').value;    	             	          
+
+		xhr.send("facultyId="+studentId);
+
+		return true;
+
+			});
+
+
+		})
