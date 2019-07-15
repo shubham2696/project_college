@@ -1,0 +1,185 @@
+CREATE TABLE Feedback (
+user_Id varchar(10) NOT NULL,
+comment text(255) not null
+);
+
+CREATE TABLE Alumni (
+alumni_id varchar(10) NOT NULL PRIMARY KEY,
+yop year not null,
+password varchar(20) not null,
+email varchar(30) not null,
+phone integer(15) not null unique
+);
+
+CREATE TABLE Subjects (
+subject_id varchar(10) NOT NULL PRIMARY KEY,
+subject_name varchar(30) not null,
+dept_id varchar(30) not null
+);
+
+CREATE TABLE Admin (
+admin_id varchar(10) NOT NULL PRIMARY KEY,
+name varchar(20) not null,
+password varchar(20) not null,
+doj date not null,
+phone bigint(10) not null unique
+);
+
+
+
+CREATE TABLE Course (
+course_id varchar(10) NOT NULL PRIMARY KEY,
+course_name varchar(20) not null,
+duration integer not null
+);
+
+CREATE TABLE Meeting (
+meeting_id varchar(10) NOT NULL PRIMARY KEY,
+meeting_info varchar(20) not null,
+m_date date not null,
+venue varchar(20) not null,
+startTime time not null,
+endTime time not null
+);
+
+CREATE TABLE Department (
+dept_id varchar(10) NOT NULL PRIMARY KEY,
+dept_name varchar(30) not null,
+course_id varchar(10) not null,
+foreign key (course_id) references Course(course_id)
+);
+
+create table applicant(applicant_id varchar(10) not null primary key,
+fname varchar(20) not null, lname varchar(20) not null, interested_course varchar(10) NOT NULL, interested_branch varchar(30) NOT NULL, x_marks integer not null,
+xii_marks integer not null, email varchar(50) not null unique, phone bigint(10) not null unique,
+ password varchar(20) not null, status varchar(10) default 'pending');
+
+create table Student(stud_id varchar(10) not null primary key, name varchar(20) not null, 
+dept_id varchar(10) NOT NULL, semester integer not null, 
+password varchar(20) not null, course_id varchar(10) not null, email varchar(30) not null unique,
+phone bigint(10) not null unique, dob datetime, foreign key(course_id) references 
+Course(course_id),  foreign key(dept_id) references Department(dept_id));
+
+create table Faculty(faculty_id varchar(10) not null primary key, name varchar(20) not null, 
+dept_id varchar(10) NOT NULL, course_id varchar(10) not null, email varchar(30) not null unique,
+phone bigint(10) not null unique, dob datetime, qualification varchar(30), experience integer, 
+foreign key(course_id) references Course(course_id),  foreign key(dept_id) references Department(dept_id));
+
+create table Subjects(subject_id varchar(10) not null primary key, subject_name varchar(20) not null, 
+dept_id varchar(10) not null, foreign key(dept_id) references Department(dept_id));
+
+create table Takes(stud_id varchar(10) not null, subject_id varchar(10) not null, 
+primary key(stud_id, subject_id), foreign key(stud_id) references Student(stud_id), 
+foreign key(subject_id) references Subject(subject_id));
+
+create table schedule(schedule_id varchar(10) not null primary key, classroom_id integer, day_of_the_week varchar(10), starttime time, endtime time, faculty_id varchar(10), foreign key(faculty_id) references faculty(faculty_id));
+
+create table student_schedule(stud_id varchar(10) not null, schedule_id varchar(10), foreign key(stud_id) references student(stud_id), foreign key(schedule_id) references schedule(schedule_id));
+
+create table faculty_meeting(faculty_id varchar(10) not null, meeting_id varchar(10), foreign key(faculty_id) references faculty(faculty_id), foreign key(meeting_id) references meeting(meeting_id));
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> select s.classroom_id, b.subject_name, s.day_of_the_week, s.starttime, s.endtime, f.name from schedule s, faculty f, subjects b, student_schedule p where p.stud_id=p_stud_id and p.schedule_id=s.schedule_id and s.subject_id=b.subject_id;
+ERROR 1146 (42S02): Table 'collegedb.subjects' doesn't exist
+mysql> desc * from studnet;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from studnet' at line 1
+mysql> desc * from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from student' at line 1
+mysql> desc student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| stud_id   | varchar(10) | NO   | PRI | NULL    |       |
+| name      | varchar(20) | NO   |     | NULL    |       |
+| dept_id   | varchar(10) | NO   | MUL | NULL    |       |
+| semester  | int(11)     | NO   |     | NULL    |       |
+| password  | varchar(20) | NO   |     | NULL    |       |
+| course_id | varchar(10) | NO   | MUL | NULL    |       |
+| email     | varchar(30) | NO   | UNI | NULL    |       |
+| phone     | int(11)     | NO   | UNI | NULL    |       |
+| dob       | datetime    | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+9 rows in set (0.07 sec)
+
+mysql> create table Subjects(subject_id varchar(10) not null primary key, subject_name varchar(20) not null,
+    -> dept_id varchar(10) not null, foreign key(dept_id) references Department(dept_id));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc subjects;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| subject_id   | varchar(10) | NO   | PRI | NULL    |       |
+| subject_name | varchar(20) | NO   |     | NULL    |       |
+| dept_id      | varchar(10) | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into subjects values('dbms1','dbms',1
+    -> );
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select s.classroom_id, b.subject_name, s.day_of_the_week, s.starttime, s.endtime, f.name from schedule s, faculty f, subjects b, student_schedule p where p.stud_id=p_stud_id and p.schedule_id=s.schedule_id and s.subject_id=b.subject_id;
+ERROR 1054 (42S22): Unknown column 'p_stud_id' in 'where clause'
+mysql> select s.classroom_id, b.subject_name, s.day_of_the_week, s.starttime, s.endtime, f.name from schedule s, faculty f, subjects b, student_schedule p where p.stud_id=1234 and p.schedule_id=s.schedule_id and s.subject_id=b.subject_id;
+ERROR 1054 (42S22): Unknown column 's.subject_id' in 'where clause'
+mysql> alter table schedule add column subject_id varchar(10) FOREIGN KEY  REFERENCES subjects(subject_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY  REFERENCES subjects(subject_id)' at line 1
+mysql> alter table schedule add column subject_id varchar(10) FOREIGN KEY(subject_id)  REFERENCES subjects(subject_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY(subject_id)  REFERENCES subjects(subject_id)' at line 1
+mysql> alter table schedule add column subject_id varchar(10) ;
+Query OK, 1 row affected (0.14 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> alter table schedule add column FOREIGN KEY(subject_id)  REFERENCES subjects(subject_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY(subject_id)  REFERENCES subjects(subject_id)' at line 1
+mysql> alter table schedule add FOREIGN KEY(subject_id)  REFERENCES subjects(subject_id);
+Query OK, 1 row affected (0.15 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select s.classroom_id, b.subject_name, s.day_of_the_week, s.starttime, s.endtime, f.name from schedule s, faculty f, subjects b, student_schedule p where p.stud_id=1234 and p.schedule_id=s.schedule_id and s.subject_id=b.subject_id;
+Empty set (0.00 sec)
+
+mysql> select * schedule;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'schedule' at line 1
+mysql> select * from schedule;
++-------------+--------------+-----------------+-----------+----------+------------+------------+
+| schedule_id | classroom_id | day_of_the_week | starttime | endtime  | faculty_id | subject_id |
++-------------+--------------+-----------------+-----------+----------+------------+------------+
+| 112         |           22 | friday          | 10:15:00  | 11:00:00 | fo1        | NULL       |
++-------------+--------------+-----------------+-----------+----------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from subject;
+ERROR 1146 (42S02): Table 'collegedb.subject' doesn't exist
+mysql> select * from subjects;
++------------+--------------+---------+
+| subject_id | subject_name | dept_id |
++------------+--------------+---------+
+| dbms1      | dbms         | 1       |
++------------+--------------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into schedule(subject_id) values('dbms1');
+ERROR 1364 (HY000): Field 'schedule_id' doesn't have a default value
+mysql> insert into schedule(subject_id) values('dbms1') where schedule_id=112;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where schedule_id=112' at line 1
+mysql> insert into schedule(subject_id) values('dbms1') where schedule_id='112';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where schedule_id='112'' at line 1
+mysql> update schedule set subject_id='dbms1' where schedule_id='112';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select s.classroom_id, b.subject_name, s.day_of_the_week, s.starttime, s.endtime, f.name from schedule s, faculty f, subjects b, student_schedule p where p.stud_id=1234 and p.schedule_id=s.schedule_id and s.subject_id=b.subject_id;
++--------------+--------------+-----------------+-----------+----------+---------+
+| classroom_id | subject_name | day_of_the_week | starttime | endtime  | name    |
++--------------+--------------+-----------------+-----------+----------+---------+
+|           22 | dbms         | friday          | 10:15:00  | 11:00:00 | shubham |
++--------------+--------------+-----------------+-----------+----------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into schedule values(112,22,'friday','10:15:00','11:00:00','f01');
