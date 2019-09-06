@@ -1,0 +1,72 @@
+1. If you are a new customer and want to open a credit card account then there are three conditions first you will get a 15% discount on all your purchases today, second if you are an existing customer and you hold a loyalty card will get a 10% discount and third if the customer have a coupon, can get 20% off today but it can’t be used with the ‘new customer’ discount. Discount amounts are added, if applicable.
+
+
+
+
+2. If the customer is a new customer offer 20% discounton next purchase, If the customer is a repeated customer offer free shipping. If risk level of goods is high then check whether customer is new & their credit record, if the repeat customer check whether the past records total is >$500 no further action else check their credit record.
+
+
+
+3. The company have type of employee as Salaried(s) & Hourly(H)) & hours they worked.The base salary will be paid if the employee is salaried, else pay hourly wise if =40(Pay hourly based, if >40(Pay hourly & Overtime), if <40(Pay Hourly & Submit absence report)
+
+
+
+4. If the customer buys $500 or more worth of grocery, delivery is free. If the customer buys between $100 and $500 worth of grocery then the delivery charge is $10 unless s/he is a valued customer, in this case the delivery charge is $5. unless if the customer pays by cash in which case the delivery is free. 
+If the customer buys under $100 worth of goods, the delivery charge is $10, unless the customer pays cash, in which case the delivery charge is $5	
+
+5. Airline Passenger Discount Policy
+
+An airline offers only flights to India and Asia. Under special conditions, a discount is offered on the normal airfare:
+
+Passengers older than 18 with destinations in India are offered a discount of 20%, as long as the departure is not on a Monday or Friday.
+For destinations outside of India, passengers are offered a discount of 25%, if the departure is not on a Monday or Friday.
+Passengers who stay at least 6 days at their destination receive an additional discount of 10%.
+Passengers older than 2 but younger than 18 years are offered a discount of 40% for all destinations.
+Children 2 and under travel for free.
+Create the table, reduce it, and then display the action stub/entry in Extended Entry format.
+
+
+
+
+
+
+
+
+6. Construct a decision table from the following narrative that specifies part of a billing 
+system for an electric utility. 
+ 
+ If the customer account is billed using a fixed rate method, a minimum monthly 
+charge is assessed for consumption of less than 100 KWH (kilowatt-hours). Otherwise, 
+computerized billing applies a Schedule A rate structure. However, if the account is 
+billed using a variable rate method, a Schedule A rate structure will apply to consumption 
+below 100 KWH with additional consumption billed according to Schedule B.
+
+
+
+7. Construct a decision table for the following
+piece of Lenton local knowledge:
+When a burglar alarm sounds, if it is in one of students’ houses where alarm
+sounds every week, ignore it. Otherwise have a look outside and if the house
+looks not broken into and there is nobody moving inside it, ignore the alarm.
+Otherwise call police.
+
+
+8. A college assigns students to various on-campus residence halls based different factors. Students who are under 21 years of age are assigned to MacDonald Hall, unless they request co-ed dorm rooms. In that case, they are assigned to Trudeau Hall. Students who are 21 and over are assigned to Laurier Hall, regardless of whether or not they want a co-ed residence.
+
+9. Medical Insurance Policy:
+
+Patients with medical insurance may or may not receive reimbursements for medical visits, depending on a couple of factors... First of all, no charges are reimbursed to the patient until the deductible has been met. If the deductible has been met, then reimbursement depends on the type of visit: Doctor's office visits are reimbursed at 50%, Hospital visits are reimbursed at 80% and Lab visits are reimbursed at 70%.
+
+
+
+10. Company discount policy:
+
+A company sells merchandise to wholesale and retail outlets. Wholesale customers receive a two percent discount on all orders. The company also encourages both wholesale and retail customers to pay cash on delivery by offering an additional two percent discount for this method of payment. nother two percent discount is given on orders of 50 or more units.
+
+11. A user's statement about the cheque cashing policy:
+
+"We have a strict policy about cashing cheques. Bad cheques are a nuisance to us and cost us a lot of money, so we're pretty careful about it. For us to cash a cheques the teller first sees if the person has a valid account number with us. If they do, we'll cash the cheques with just their signature. The only other kinds of chequss we cash are government chequess and only if the person has photo ID. They don't need an account number for that."
+
+Design the decision table for the Check Cashing Policy!
+
+
