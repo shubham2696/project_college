@@ -1,0 +1,270 @@
+Undo or backspace or ctrl+z is one of the most used operation in an editor.
+
+Which of the following pattern is used to implement the undo operation?
+Momento Pattern
+Proxy Pattern
+Template Pattern
+State Pattern
+
+_______ method of the JPA manager would is used to force synchronizing the persistence context from the database.
+flush()
+synchronize()
+refresh()
+persist()
+
+Spring provides API to easily integrate Spring with ORM frameworks such as:
+Hibernate
+Oracle Toplink
+All of the listed options
+JPA(Java Persistence API)
+JDO(Java Data Objects)
+
+Factory method pattern is called as _______
+
+_______ annotation represents the embedded objects.
+@ElementCollection
+@List
+None of the mentioned option
+@Collection
+
+Spring enables exception translation to be applied transparently through the _______ annotation.
+@Qualifier
+@Repository
+@Transactional
+@Required
+
+Each entity class to be persisted by an ORM framework, a default constructor with no argument is required.
+TRUE
+FALSE
+
+Which of the following pattern, a visitor class is used which changes the executing algorithm of an element class?
+Visitor Pattern
+Business Delegate Pattern
+Composite Entity Pattern
+MVC Pattern
+
+Integer.valueOf is an example of Factory pattern
+FALSE
+TRUE
+
+Fill the missed code,
+Which of the following annotation is used to the specify name of the database table explicitly
+@Entity
+_________
+public class Student {
+// ..class body
+}
+@Table(table="student")
+@table(name="student")
+@Table(name="student")
+@Table(name=student)
+
+Which design pattern should be used when a behavior that is distributed between several classes should be customizable without a lot of sub-classing?
+Facade
+Factory Pattern
+Mediator Pattern
+Observer Pattern
+
+Select the possible transaction from an entity state
+from new to detached 
+from detached to new
+from managed to removed
+from detached to removed
+from managed to detached
+
+_______ method is used to make an instance managed and persistent and an entity instance is passed within this method.
+None of the mentioned option
+live()
+persist()
+persistence()
+
+Which of the following are the elements of a design pattern?
+Context
+Problem
+Solution
+Environment
+
+Select the possible transaction from an entity state
+from managed to detached
+from new to detached 
+from detached to new
+from managed to removed
+from detached to removed
+
+Factory method provided __________ by eliminating the need to bind application-specific classes into the code.
+
+A. tight-coupling
+B. loose-coupling
+Only A
+Both A and B
+Only B
+
+When we work with an object-oriented system, there is a mismatch between the object model and the relational database.
+FALSE
+TRUE
+
+Select the syntax for creating the query using JPQL
+query query = object.createquery("Select name from StudentEntity");
+Query query = object.createQuery("Select name from StudentEntity");
+Query query = object.execute("Select name from StudentEntity");
+Query query = object.create("Select name from StudentEntity");
+
+________ is an umbrella module that covers many persistence technologies, namely JPA, JDO, Hibernate and iBatis.
+Spring-JDBC
+Spring-DAO
+Spring-Data
+Spring-ORM
+
+What is not true about memento pattern?
+preserves the simplicity of the Originator class by delegating the saving and restoring of information to the Memento class
+All of the mentioned options
+It is also called Token
+It provides a way to preserve the state of an object while preserving encapsulation.
+
+Select the state,in which JPA entity class is synchronize with the database?
+Managed
+New
+Synchronized
+Detached
+
+Is design pattern a logical concept?
+True
+False
+
+Entity manager is provided by ______________interface in java.persistence package
+EntityManagerFactory
+ResourceManager
+EntityManager
+EntityFactory
+
+Implementation of JPA is done using _____
+Toplink
+Hibernate
+All of the mentioned option
+Ibatis
+
+Iterator pattern is used to ___
+Attach a flexible additional responsibilities to an object dynamically
+Access the elements of an aggregate object sequentially without exposing its underlying implementation
+Restore the state of an object to its previous state
+Define a representation of grammar of a given language, along with an interpreter that uses this representation to interpret sentences in the language
+
+Pick the lifecycle of the object in the pool.
+Creation, Validation and Destroy
+Execution, Validation and Destroy
+Creation, Execution and Validation
+Creation, Execution and Destroy
+
+Which of the following pattern reduces coupling?
+Iterator Pattern
+Mediator Pattern
+Responsibility Pattern
+Template Pattern
+
+Which of the following pattern reduces coupling?
+Iterator Pattern
+Mediator Pattern
+Responsibility Pattern
+Template Pattern
+
+Which of the following describes the Facade pattern correctly?
+This pattern is primarily used to reduce the number of objects created and to decrease memory footprint and increase performance.
+This pattern hides the complexities of the system and provides an interface to the client using which the client can access the system.
+This pattern allows a user to add new functionality to an existing object without altering its structure.
+This pattern is used where we need to treat a group of objects in similar way as a single object.
+
+Which design pattern accepts two or more previously incompatible objects to interact?
+Decorator Pattern
+Flyweight Pattern
+Adapter Pattern
+Proxy Pattern
+
+ou can wrap your ORM code with a declarative, aspect-oriented programming (AOP) style method interceptor through ___________.
+@Transactional annotation
+explicitly configuring the transaction AOP advice in an XML configuration file
+both a and b
+None of the mentioned
+
+Which of the following are the entities of an ORM solution?
+An API to perform basic CRUD operations on objects of persistent classes.
+All of the listed options
+A technique to interact with transactional objects
+A configurable facility for specifying mapping metadata.
+A language or API to specify queries that refer to classes and properties of classes.
+
+Which design pattern represents a way to access all the objects in a collection?
+Bridge
+Builder
+Facade
+Iterator
+
+Which of the following is not a JPA enitity manager mathod?
+contains
+persist
+flush
+detach
+
+Which of the following act as a bridge between object-oriented domain models and relational database systems?
+JDBC
+JPA
+Java Beans
+None of the mentioned option
+
+Which of the following represents the (static) structure and (dynamic) behavior of the pattern?
+Name
+Form
+Application
+Consequences
+
+Which of the following method causes entity manager to move an Entity instance from the detached to the managed state?
+remove()
+merge()
+persist()
+manage()
+
+Which @Entity association attributes are implemented in the following code snippet?
+@Entity
+public class Subject {
+@Id
+private int subjectId;
+@ManyToMany
+private List studentList;
+}
+@Entity
+public class Student {
+@Id
+private int StudentNo;
+@ManyToMany(mappedBy="studentList")
+private List subjectList;
+}
+
+To create Is-A mapping _______ annotation is used.
+@Inheritance
+@relationship
+@InheritanceMapping
+@IsAMapping
+
+What are the benefits of using the Spring Framework to create your ORM DAOs?
+All of the listed options
+Integrated transaction management
+General resource management
+Common data access exception
+Easier Testing
+
+Pick the benefits of Intercepting Filter Pattern
+It provides central control with loosely coupled handlers.
+Improves coupling
+Improves reusability
+It makes any state transitions explicit.
+
+Design patterns are programming language _________ strategies for solving the common object-oriented design problems.
+Dependent
+Independent
+
+A pattern language
+resembles the structure of natural languages
+encompasses a collection of patterns
+None of the mentioned options
+is implemented using hypertext
+
+
